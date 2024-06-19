@@ -2,9 +2,9 @@
 
 This notebook is designed as a base for analysis for Trackmania's physics. 
 
-You can view API documentation here: http://localhost:8080/swagger-ui/index.html#, in the 'out' controller section. 
+I'm running a small web server that collects and distributes collected map data from users using the Gigachad Collector plugin. 
 
-(The 'in' section is what API is used by the GigaChad Collector (GCC) from within Trackmania.)
+(The 'in' section of the API is used by the GigaChad Collector (GCC) from within Trackmania.)
 
 
 ```python
