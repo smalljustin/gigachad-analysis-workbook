@@ -55,8 +55,8 @@ display(runkeys_df)
 
 # change these values with 'tag' and 'name' respectively
 
-SELECTED_MAPTAG = 'stadium - dirt'
-SELECTED_RUNKEY = 'test2'
+SELECTED_MAPTAG = 'dirt - stadium'
+SELECTED_RUNKEY = 'default'
 
 ```
 
@@ -165,7 +165,7 @@ runkey_data = requests.get(f"{SERVER_PATH}/out/data/runkey", params={"runkey": S
 print(f"Loaded {len(maptag_data.text)} chars of maptag data, {len(runkey_data.text)} chars of runkey data")
 ```
 
-    Loaded 113 chars of maptag data, 116 chars of runkey data
+    Loaded 3566552 chars of maptag data, 3566552 chars of runkey data
     
 
 
@@ -195,66 +195,7 @@ plt.show()
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    KeyError                                  Traceback (most recent call last)
-
-    File ~\anaconda3\lib\site-packages\pandas\core\indexes\base.py:3621, in Index.get_loc(self, key, method, tolerance)
-       3620 try:
-    -> 3621     return self._engine.get_loc(casted_key)
-       3622 except KeyError as err:
     
-
-    File ~\anaconda3\lib\site-packages\pandas\_libs\index.pyx:136, in pandas._libs.index.IndexEngine.get_loc()
+![png](output_6_0.png)
     
-
-    File ~\anaconda3\lib\site-packages\pandas\_libs\index.pyx:163, in pandas._libs.index.IndexEngine.get_loc()
-    
-
-    File pandas\_libs\hashtable_class_helper.pxi:5198, in pandas._libs.hashtable.PyObjectHashTable.get_item()
-    
-
-    File pandas\_libs\hashtable_class_helper.pxi:5206, in pandas._libs.hashtable.PyObjectHashTable.get_item()
-    
-
-    KeyError: 'speed'
-
-    
-    The above exception was the direct cause of the following exception:
-    
-
-    KeyError                                  Traceback (most recent call last)
-
-    Input In [5], in <cell line: 7>()
-          1 # Example: Graph of acceleration at different slide angles
-          2 
-          3 ## Preprocess: 
-          4 
-          5 # Acceleration isn't natively provided - do .diff() for this and any other derivatives you want to calculate
-          6 # You can do a rolling average, too, depending on usage
-    ----> 7 df["acc"] = df["speed"].diff()
-          9 ## Filter:
-         11 df = df[abs(df["acc"]) < 0.5]
-    
-
-    File ~\anaconda3\lib\site-packages\pandas\core\frame.py:3505, in DataFrame.__getitem__(self, key)
-       3503 if self.columns.nlevels > 1:
-       3504     return self._getitem_multilevel(key)
-    -> 3505 indexer = self.columns.get_loc(key)
-       3506 if is_integer(indexer):
-       3507     indexer = [indexer]
-    
-
-    File ~\anaconda3\lib\site-packages\pandas\core\indexes\base.py:3623, in Index.get_loc(self, key, method, tolerance)
-       3621     return self._engine.get_loc(casted_key)
-       3622 except KeyError as err:
-    -> 3623     raise KeyError(key) from err
-       3624 except TypeError:
-       3625     # If we have a listlike key, _check_indexing_error will raise
-       3626     #  InvalidIndexError. Otherwise we fall through and re-raise
-       3627     #  the TypeError.
-       3628     self._check_indexing_error(key)
-    
-
-    KeyError: 'speed'
 
