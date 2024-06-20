@@ -12,8 +12,8 @@ import pandas as pd
 import requests
 import matplotlib.pyplot as plt
 
-# optional - makes plots pop out. highly recommended
-# %matplotlib qt
+# optional - makes plots pop out. highly recommended. disabled for rendering in git
+#%matplotlib qt
 
 # no trailing slash
 url_prod = "http://gigachad.justinjschmitz.com:21532";
@@ -55,7 +55,9 @@ display(runkeys_df)
 
 # change these values with 'tag' and 'name' respectively
 
-SELECTED_MAPTAG = 'dirt - stadium'
+# 'legacy' for all of my old training data 
+# it's ~250mb of data - please be courtious in pulling this one. i do not want to have to deal with rate limiting
+SELECTED_MAPTAG = 'dirt - stadium' 
 SELECTED_RUNKEY = 'default'
 
 ```
@@ -100,8 +102,16 @@ SELECTED_RUNKEY = 'default'
       <td>dirt - desert</td>
       <td>sgt_bigbird</td>
     </tr>
+    <tr>
+      <th>4</th>
+      <td>6</td>
+      <td>LEGACY</td>
+      <td>legacy</td>
+      <td>sgt_bigbird</td>
+    </tr>
   </tbody>
 </table>
+
 
 
 <table border="1" class="dataframe">
@@ -120,8 +130,15 @@ SELECTED_RUNKEY = 'default'
       <td>default</td>
       <td>1</td>
     </tr>
+    <tr>
+      <th>1</th>
+      <td>103</td>
+      <td>legacy</td>
+      <td>1</td>
+    </tr>
   </tbody>
 </table>
+
 
 
 ```python
@@ -138,8 +155,8 @@ print(f"Loaded {len(maptag_data.text)} chars of maptag data, {len(runkey_data.te
 
 
 ```python
-data = maptag_data
-# data = runkey_data
+# data = maptag_data
+data = runkey_data
 df = pd.json_normalize(data.json())
 ```
 
@@ -158,7 +175,7 @@ df["acc"] = df["speed"].diff()
 df = df[abs(df["acc"]) < 0.5]
 
 ## Now scatter the data 
-plt.scatter(x=df["slipDir"], y=df["acc"], c=df["speed"], alpha=1)
+plt.scatter(x=df["slipDir"], y=df["acc"], c=df["speed"], alpha=0.3)
 plt.show()
 ```
 
