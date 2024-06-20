@@ -56,9 +56,9 @@ display(runkeys_df)
 # change these values with 'tag' and 'name' respectively
 
 # 'legacy' for all of my old training data 
-# it's ~250mb of data - please be courtious in pulling this one. i do not want to have to deal with rate limiting
-SELECTED_MAPTAG = 'dirt - stadium' 
-SELECTED_RUNKEY = 'default'
+# these frames can be hard to work with
+SELECTED_MAPTAG = 'legacy' 
+SELECTED_RUNKEY = 'legacy'
 
 ```
 
@@ -147,21 +147,29 @@ maptag_data = requests.get(f"{SERVER_PATH}/out/data/tag", params={"tag": SELECTE
 # For 'runkey' data:
 runkey_data = requests.get(f"{SERVER_PATH}/out/data/runkey", params={"runkey": SELECTED_RUNKEY})
 
+# For all available data:
+all_data = requests.get(f"{SERVER_PATH}/out/all", params={"runkey": SELECTED_RUNKEY})
+
+# Some columns are hidden from these views to save data. If you want them, add "/verbose" to the end of the route. 
+# Same for the 'all data' route. 
+
 print(f"Loaded {len(maptag_data.text)} chars of maptag data, {len(runkey_data.text)} chars of runkey data")
 ```
 
-    Loaded 3566552 chars of maptag data, 3566552 chars of runkey data
+    Loaded 140124821 chars of maptag data, 140124821 chars of runkey data
     
 
 
 ```python
 # data = maptag_data
 data = runkey_data
-df = pd.json_normalize(data.json())
+# data = all_data
 ```
 
 
 ```python
+df = pd.json_normalize(data.json())
+
 # Example: Graph of acceleration at different slide angles
 
 ## Preprocess: 
@@ -172,15 +180,28 @@ df["acc"] = df["speed"].diff()
 
 ## Filter:
 
-df = df[abs(df["acc"]) < 0.5]
+df = df[abs(df["acc"]) < 0.2]
+
+# Use this type of call to see what surfaces are available
+# Legacy is mostly wood - I have more data in .csv format, but haven't uploaded it yet
+
+# print(df["frGroundContactMaterial"].unique())
+
+df = df[df["flGroundContactMaterial"] == "Wood"]
+df = df[df["frGroundContactMaterial"] == "Wood"]
+df = df[df["rlGroundContactMaterial"] == "Wood"]
+df = df[df["rrGroundContactMaterial"] == "Wood"]
 
 ## Now scatter the data 
 plt.scatter(x=df["slipDir"], y=df["acc"], c=df["speed"], alpha=0.3)
 plt.show()
 ```
 
+    ['XXX_Null' 'Wood' 'RoadIce' 'Water' 'Concrete' 'Green']
+    
+
 
     
-![png](output_6_0.png)
+![png](output_6_1.png)
     
 
