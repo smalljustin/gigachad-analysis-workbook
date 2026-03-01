@@ -17,7 +17,7 @@ import numpy as np
 # %matplotlib qt
 
 # no trailing slash
-url_prod = "http://gigachad.justinjschmitz.com:21532";
+url_prod = "http://[old dead web server]:21532";
 url_dev = "http://localhost:8080";
 
 SERVER_PATH = url_prod
@@ -28,7 +28,7 @@ print(f"Current documentation page: {SWAGGER_PATH}")
 
 ```
 
-    Current documentation page: http://gigachad.justinjschmitz.com:21532/swagger-ui/index.html
+    Current documentation page: http://[old dead web server]:21532/swagger-ui/index.html
     
 
 ## Data Selection
